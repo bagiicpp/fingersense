@@ -1,47 +1,92 @@
-# Svelte + TS + Vite
+# Hand Detector App
 
-This template should help get you started developing with Svelte and TypeScript in Vite.
+This is a simple web application that detects the aspect of a human hand (dorsal/palmar, left/right) from webcam images. The application demonstrates the full end-to-end workflow from machine learning model development to deployment in a web interface using Svelte and FastAPI.
 
-## Recommended IDE Setup
+## Project Overview
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+The machine learning model used in this project was developed in a separate repository, [`fingersense-notebook`](https://github.com/yourusername/fingersense-notebook), where I trained and evaluated a logistic regression classifier on the 11,000+ hands dataset. The model achieved high accuracy (~95%) in classifying hand aspects and serves as a strong baseline before moving to deep learning models.
 
-## Need an official Svelte framework?
+This project showcases:
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+* Data exploration and preprocessing of hand images.
+* Training a baseline machine learning model.
+* Exporting the trained model (`hand_model.pkl`) for use in a web application.
+* Building a Python backend using FastAPI to serve predictions.
+* Creating a Svelte frontend that captures webcam images and communicates with the backend.
 
-## Technical considerations
+## Features
 
-**Why use this over SvelteKit?**
+* Live webcam capture of hand images.
+* Real-time prediction of hand aspect:
 
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
+  * `dorsal left`
+  * `dorsal right`
+  * `palmar left`
+  * `palmar right`
+* Easy-to-understand, minimal codebase suitable for demonstration purposes.
 
-This template contains as little as possible to get started with Vite + TypeScript + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
+## Project Structure
 
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
-
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
-
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
-
-**Why include `.vscode/extensions.json`?**
-
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
-
-**Why enable `allowJs` in the TS template?**
-
-While `allowJs: false` would indeed prevent the use of `.js` files in the project, it does not prevent the use of JavaScript syntax in `.svelte` files. In addition, it would force `checkJs: false`, bringing the worst of both worlds: not being able to guarantee the entire codebase is TypeScript, and also having worse typechecking for the existing JavaScript. In addition, there are valid use cases in which a mixed codebase may be relevant.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```ts
-// store.ts
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
 ```
+hand-detector-app/
+├─ backend/
+│  ├─ app.py               # FastAPI backend server
+│  ├─ hand_model.pkl       # Exported trained ML model
+│  └─ requirements.txt     # Python dependencies
+├─ frontend/
+│  ├─ src/
+│  │  ├─ App.svelte       # Main Svelte app
+│  │  ├─ components/
+│  │  │  └─ WebcamCapture.svelte
+│  │  └─ assets/
+│  ├─ package.json
+│  └─ svelte.config.js
+└─ README.md
+```
+
+## Usage
+
+### Backend
+
+1. Navigate to the `backend` directory.
+2. Install dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Run the FastAPI server:
+
+   ```bash
+   uvicorn app:app --reload
+   ```
+4. The backend will be available at `http://127.0.0.1:8000`.
+
+### Frontend
+
+1. Navigate to the `frontend` directory.
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+3. Run the Svelte development server:
+
+   ```bash
+   npm run dev
+   ```
+4. Open the app in your browser (usually `http://localhost:5173`).
+5. Allow webcam access and click "Detect Hand" to see predictions.
+
+## Notes
+
+* The model currently uses a logistic regression baseline. Future improvements could include convolutional neural networks (CNNs) for higher accuracy and robustness.
+* This app is meant as a **portfolio demonstration** of end-to-end ML deployment and not for production use.
+
+## References
+
+* Model and experiments: [`fingersense-notebook`](https://github.com/yourusername/fingersense-notebook)
+* Hands dataset: 11,000+ hand images with labels for aspect, age, gender, and other features.
+
+---
+
+This project highlights practical skills in data preprocessing, model training, API development, and frontend integration — demonstrating the ability to take a machine learning model from research to a working web application.
