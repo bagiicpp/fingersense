@@ -1,4 +1,4 @@
-# Hand Detector App
+# FingerSense
 
 This is a simple web application that detects the aspect of a human hand (dorsal/palmar, left/right) from webcam images. The application demonstrates the full end-to-end workflow from machine learning model development to deployment in a web interface using Svelte and FastAPI.
 
