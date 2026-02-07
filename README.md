@@ -4,7 +4,7 @@ This is a simple web application that detects the aspect of a human hand (dorsal
 
 ## Project Overview
 
-The machine learning model used in this project was developed in a separate repository, [`fingersense-notebook`](https://github.com/yourusername/fingersense-notebook), where I trained and evaluated a logistic regression classifier on the 11,000+ hands dataset. The model achieved high accuracy (~95%) in classifying hand aspects and serves as a strong baseline before moving to deep learning models.
+The machine learning model used in this project was developed in a separate repository, [`fingersense-notebook`](https://github.com/bagiicpp/fingersense-notebook), where I trained and evaluated a logistic regression classifier on the 11,000+ hands dataset. The model achieved high accuracy (~95%) in classifying hand aspects and serves as a strong baseline before moving to deep learning models.
 
 This project showcases:
 
@@ -84,7 +84,7 @@ hand-detector-app/
 
 ## References
 
-* Model and experiments: [`fingersense-notebook`](https://github.com/yourusername/fingersense-notebook)
+* Model and experiments: [`fingersense-notebook`](https://github.com/bagiicpp/fingersense-notebook)
 * Hands dataset: 11,000+ hand images with labels for aspect, age, gender, and other features.
 
 ---
